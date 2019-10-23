@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NR GST Auto</title>
+	<link rel="shortcut icon" href="./static/images/favicon.ico" type="image/x-icon">
+	<style type="text/css">
+		h3{
+			font-size: 33px;
+			color: blue;
+			position: relative;
+			margin: 5px;
+			padding: 0;
+		}
+		select{
+			padding: 5px 10px 5px 10px;
+			margin: 8px 0px 0px 8px;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			font-size: 22px;
+			width:97%;
+		}
+		#client_data{
+			margin: 8px;
+			border-collapse: collapse;
+			width: 97%;
+		}
+		#client_data td, #client_data th{
+			border: 1px solid #ddd;
+			padding: 4px;
+			padding-left: 20px;
+			text-align: left;
+			width: 50%;
+		}
+		#client_data tr:hover {background-color: #ddd;}
+		#client_data th{
+			padding-top: 8px;
+			padding-bottom: 8px;
+			text-align: center;
+			background-color: grey;
+			color: white;
+			font-size: 20px;
+		}
+		#client_data td{
+			font-size: 22px;
+		}
+		input[type=button]{
+			width: 48%;
+			background-color: #4CAF50;
+			color: white;
+			padding: 6px 10px 6px 10px;
+			margin: 8px 0px 0px 8px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 22px;
+		}
+		#refresh_button{
+			background-color: blueviolet;
+		}
+	</style>
+	<script type="text/javascript" src="/eel.js"></script>
+	<script type="text/javascript">
+
+		//Global variables
+		var client_list = null
+		var client_dict = null
+
+		async function get_and_set_client_name_dropdown(){
+			let client_list_and_dict_py = await eel.get_client_list_and_dict_from_excel()()
+			client_list = client_list_and_dict_py[0]
+			client_dict = client_list_and_dict_py[1]
+			var select = document.getElementById("client")
+			for(var i = 0, size = client_list.length; i < size; i++) {
+				var client_name = client_list[i]
+				var opt = document.createElement('option')
+				opt.value = client_name
+				opt.innerHTML = client_name
+				select.appendChild(opt)
+			}
+		}
+
+		function set_client_details(){
+			let selected_client = document.getElementById("client").value
+			if (selected_client != "Select") {
+				var client_detail_toput = client_dict[selected_client]
+				document.getElementById("User_id").innerHTML = client_detail_toput["User_id"]
+				document.getElementById("Password").innerHTML = client_detail_toput["Password"]
+				document.getElementById("GSTIN").innerHTML = client_detail_toput["GSTIN"]
+				document.getElementById("Organization_Type").innerHTML = client_detail_toput["Organization_Type"]
+				document.getElementById("Contact_Person").innerHTML = client_detail_toput["Contact_Person"]
+				document.getElementById("Contact_Number").innerHTML = client_detail_toput["Contact_Number"]
+				document.getElementById("Email_ID").innerHTML = client_detail_toput["Email_ID"]
+				document.getElementById("Client_Status").innerHTML = client_detail_toput["Client_Status"]
+				document.getElementById("Registration_Type").innerHTML = client_detail_toput["Registration_Type"]
+			} else {
+				set_default_values()
+			}
+		}
+
+		function data_refresh(){
+			get_and_set_client_name_dropdown()
+			set_default_values()
+		}
+
+		function set_default_values() {
+			document.getElementById("client").value = "Select"
+			document.getElementById("User_id").innerHTML = ""
+			document.getElementById("Password").innerHTML = ""
+			document.getElementById("GSTIN").innerHTML = ""
+			document.getElementById("Organization_Type").innerHTML = ""
+			document.getElementById("Contact_Person").innerHTML = ""
+			document.getElementById("Contact_Number").innerHTML = ""
+			document.getElementById("Email_ID").innerHTML = ""
+			document.getElementById("Client_Status").innerHTML = ""
+			document.getElementById("Registration_Type").innerHTML = ""
+		}
+
+		async function login(){
+			var id = document.getElementById("User_id").innerHTML
+			var pwd = document.getElementById("Password").innerHTML
+			if (id != "" && pwd != "") {
+				await eel.eel_login_on_gst_portal(id, pwd)()
+			} else {
+				alert("User ID and/or Password is missing!")
+			}
+		}
+
+	</script>
+
+	<script type="text/javascript">
+		document.addEventListener("contextmenu", function(e){
+			e.preventDefault();
+		}, false)
+	</script>
+</head>
+<body onload="get_and_set_client_name_dropdown()">
+	<div id="contents">
+		<h3 align="Center">GST Auto</h3>
+		<select id="client" name="client" value="Select" onchange="set_client_details()">
+				<option>Select</option>
+		</select>
+		<table id="client_data">
+			<tr>
+				<td>User ID</td>
+				<td id="User_id"></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td id="Password"></td>
+			</tr>
+			<tr>
+				<td>GSTIN</td>
+				<td id="GSTIN"></td>
+			</tr>
+			<tr>
+				<td>Organization Type</td>
+				<td id="Organization_Type"></td>
+			</tr>
+			<tr>
+				<td>Contact Person</td>
+				<td id="Contact_Person"></td>
+			</tr>
+			<tr>
+				<td>Contact Number</td>
+				<td id="Contact_Number"></td>
+			</tr>
+			<tr>
+				<td>Email ID</td>
+				<td id="Email_ID"></td>
+			</tr>
+			<tr>
+				<td>Client Status</td>
+				<td id="Client_Status"></td>
+			</tr>
+			<tr>
+				<td>Registration Type</td>
+				<td id="Registration_Type"></td>
+			</tr>
+		</table>
+		<input id="refresh_button" type="button" value="Refresh" onclick="data_refresh()" accesskey="r" title="Alt + r"/>
+		<input id="submit_button" type="button" value="Login" onclick="login()" accesskey="l" title="Alt + r"/>
+	</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Folder to ignore
+__pycache__/
+.vscode/
+db/
+
+# Files to ignore
+N.ico
+todo.txt
+config.py
+
+# Files extension to igonre
+*.spec
