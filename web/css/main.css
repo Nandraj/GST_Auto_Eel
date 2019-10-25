@@ -1,0 +1,77 @@
+h3 {
+    font-size: 200%;
+    color: blue;
+    position: relative;
+    margin: 5px;
+    padding: 0;
+}
+
+select {
+    padding: 5px 10px 5px 10px;
+    margin: 8px 0px 0px 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+    width: 97%;
+}
+
+#client_data {
+    margin: 8px;
+    border-collapse: collapse;
+    width: 97%;
+}
+
+#client_data td{
+    border: 1px solid #ddd;
+    padding: 4px;
+    padding-left: 1%;
+    text-align: left;
+    width: 50%;
+}
+
+#client_data tr:hover {
+    background-color: #ddd;
+}
+
+#client_data td {
+    font-size: 120%;
+}
+
+input[type=button] {
+    position: relative;
+    width: 25%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px 6px 10px;
+    margin: 8px 0px 0px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 115%;
+}
+
+#refresh_button {
+    background-color: teal;
+}
+
+#password_button {
+    background-color: #D43F3F;
+}
+
+#open_xl_button {
+    background-color: blueviolet;
+}
+
+.hidetext {
+    -webkit-text-security: disc;
+    /* Default */
+}
+
+.buttons{
+    width: 97.6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
