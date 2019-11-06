@@ -28,7 +28,7 @@ def eel_login_on_gst_portal(id, pwd):
 # Function for opening excel source file to edit
 @eel.expose
 def open_excel_file_to_edit():
-    os.system(f"start EXCEL.EXE {excel_file}")
+    os.system(f'start /max EXCEL.EXE "{excel_file}"')
 
 
 eel.start("main.html")

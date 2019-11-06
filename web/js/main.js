@@ -71,19 +71,26 @@ function set_default_values() {
 
 // On login button press initiate login to be executed on python part
 async function login() {
-    var id = document.getElementById("User_id").innerHTML
-    var pwd = document.getElementById("Password").innerHTML
-    if (id != "" && pwd != "") {
-        await eel.eel_login_on_gst_portal(id, pwd)()
+    let selected_client = document.getElementById("client").value
+    if (selected_client != "Select") {
+        var id = client_dict[selected_client]["User_id"]
+        var pwd = client_dict[selected_client]["Password"]
+        if (id != "" && pwd != "") {
+            await eel.eel_login_on_gst_portal(id, pwd)()
+        } else {
+            alert("User ID and/or Password is missing!")
+        }
     } else {
-        alert("User ID and/or Password is missing!")
+        alert("Select client to Login!")
     }
+    
 }
 
 // On button press give password details into alert
 function showPasswrod() {
-    var pwd = document.getElementById("Password").innerHTML
-    if (pwd != "") {
+    let selected_client = document.getElementById("client").value
+    if (pwd != "" && selected_client != "Select") {
+        var pwd = client_dict[selected_client]["Password"]
         alert("Password: " + pwd)
     } else {
         alert("Password is missing!")
