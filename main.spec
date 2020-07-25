@@ -2,15 +2,18 @@
 
 block_cipher = None
 
+import os
+
+path = os.path.abspath(".")
 
 a = Analysis(['main.py'],
-             pathex=['C:\\Users\\Admin\\Desktop\\gst_auto_eel'],
+             pathex=[path],
              binaries=[],
-             datas=[('C:\\Users\\Admin\\Anaconda3\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web'), ('chromedriver.exe', '.'), ('N.ico', '.'), ('db', 'db')],
+             datas=[('C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python37-32\\Lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web'), ('D:\\Desktop_Files\\chromedriver.exe', '.'), ('N.ico', '.'), ('db', 'db')],
              hiddenimports=['bottle_websocket'],
              hookspath=[],
              runtime_hooks=[],
-             excludes=['numpy'],
+             excludes=['numpy', 'django', 'PyQt5'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher,

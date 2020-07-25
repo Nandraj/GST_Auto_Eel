@@ -1,6 +1,8 @@
 # Folder to ignore
 __pycache__/
 .vscode/
+dist/
+build/
 
 # Files to ignore
 N.ico
